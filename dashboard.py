@@ -7,8 +7,12 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# Check if user is logged in
+user = st.session_state.get("user")
+st.title(f"Welcome, {user['name']}" if user else "Welcome to the Dashboard")
+
 # Get the connection string from the environment variable
-conn_string = os.getenv("DATABASE_URL")
+conn_string = st.secrets.get("DATABASE_URL")
 
 if not conn_string:
     st.error("DATABASE_URL environment variable not found. Please check your .env file.")
